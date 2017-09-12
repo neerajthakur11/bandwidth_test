@@ -7,10 +7,10 @@ import traceback
 
 from optparse import OptionParser
 
-buffer_size = 512
+buffer_size = 2048
 
-up_buffer_size = 512 * 1024
-down_buffer_size = 512 * 1024
+up_buffer_size = 1024 * 1024
+down_buffer_size = 1024 * 1024
 
 def main(options):
     print 'starting client'
@@ -35,7 +35,7 @@ def upload_test(options):
         pass
     else:
         raise Exception('buffer size exchange failed')
-    pkt_data = bytearray(os.urandom(up_buffer_size))
+    pkt_data = bytearray('a'*up_buffer_size)
     s.send(pkt_data)
     time_up_diff = float(s.recv(buffer_size))
     print 'time required for upload was %f sec' % time_up_diff

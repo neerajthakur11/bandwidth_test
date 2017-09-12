@@ -7,7 +7,7 @@ import traceback
 
 from optparse import OptionParser
 
-buffer_size = 512
+buffer_size = 2048
 
 def main(options):
     #using TCP
@@ -52,7 +52,7 @@ def handle_request(client, address):
                 data_buffer_size = long(client.recv(buffer_size)) 
                 print 'using buffer: %i Kb'%(data_buffer_size/1024)
                 client.send('recv_buffer_ok')
-                pkt_data = bytearray(os.urandom(data_buffer_size))
+                pkt_data = bytearray('a'*data_buffer_size)
                 client.send(pkt_data)
                 pkt_cmd = client.recv(buffer_size)
                 if pkt_cmd == 'finish_download':
